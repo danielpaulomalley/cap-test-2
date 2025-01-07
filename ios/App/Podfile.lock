@@ -1,6 +1,4 @@
 PODS:
-  - CapacitorThermalPrinter (0.0.1):
-    - Capacitor
   - Capacitor (6.0.0):
     - CapacitorCordova
   - CapacitorApp (6.0.0):
@@ -12,19 +10,19 @@ PODS:
     - Capacitor
   - CapacitorStatusBar (6.0.0):
     - Capacitor
+  - CapacitorThermalPrinter (0.2.3):
+    - Capacitor
 
 DEPENDENCIES:
-  - CapacitorThermalPrinter (from `../../..`)
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - CapacitorThermalPrinter (from `../../node_modules/capacitor-thermal-printer`)
 
 EXTERNAL SOURCES:
-  CapacitorThermalPrinter:
-    :path: "../../.."
   Capacitor:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
@@ -37,16 +35,18 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/keyboard"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
+  CapacitorThermalPrinter:
+    :path: "../../node_modules/capacitor-thermal-printer"
 
 SPEC CHECKSUMS:
-  CapacitorThermalPrinter: 45b76976d41da7dbcbc7b4c0f6f601841bad85ef
   Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
   CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
   CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
   CapacitorHaptics: 9ebc9363f0e9b8eb4295088a0b474530acf1859b
   CapacitorKeyboard: deacbd09d8d1029c3681197fb05d206b721d5f73
   CapacitorStatusBar: 2e4369f99166125435641b1908d05f561eaba6f6
+  CapacitorThermalPrinter: 19e599574756b91f742fe92ca56108266c3dd8f5
 
-PODFILE CHECKSUM: 4d758b6bbae16ee896c45733d34750be1802f025
+PODFILE CHECKSUM: 2d72ca2b980dba2921a9534ac21f4c778610b33b
 
 COCOAPODS: 1.15.2

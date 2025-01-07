@@ -1,0 +1,147 @@
+<div class="ion-page">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title size="large">The Laboratory.</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="wrapper">
+    <ion-list class="devices">
+      @if (isScanning) {
+        <ion-spinner color="primary"></ion-spinner>
+      }
+      @for (device of devices; track device.address) {
+        <ion-item (click)="connectDevice(device)" class="device" lines="none" detail="false" [button]="true">
+          <ion-icon slot="start" name="print"></ion-icon>
+          <div class="device-wrapper">
+            <ion-label>{{device.name}}</ion-label>
+            <ion-note>{{device.address}}</ion-note>
+          </div>
+        </ion-item>
+      }
+    </ion-list>
+    <ion-col class="actions">
+      <ion-row>
+        <ion-button color="primary" (click)="printImage()">
+          <ion-icon slot="start" name="image"></ion-icon>
+          <ion-label>Image</ion-label>
+        </ion-button>
+        <ion-button color="primary" (click)="textModal.present()">
+          <ion-icon slot="start" name="text"></ion-icon>
+          <ion-label>Text</ion-label>
+        </ion-button>
+      </ion-row>
+      <ion-button color="primary" (click)="dataCodeModal.present()">
+        <ion-icon slot="start" name="qr-code"></ion-icon>
+        <ion-label>QR Code / Barcode</ion-label>
+        <ion-icon slot="end" name="barcode"></ion-icon>
+      </ion-button>
+      <ion-row>
+        <ion-button color="primary" (click)="cutPaper()">
+          <ion-icon slot="start" name="cut"></ion-icon>
+          <ion-label>Cut</ion-label>
+        </ion-button>
+        <ion-button color="primary" (click)="beep()">
+          <ion-icon slot="start" name="musical-note"></ion-icon>
+          <ion-label>Beep</ion-label>
+        </ion-button>
+      </ion-row>
+      <ion-button color="primary" (click)="printShowcase()">
+        <ion-icon slot="start" name="sparkles"></ion-icon>
+        <ion-label>Print Showcase</ion-label>
+      </ion-button>
+      @if (!isScanning) {
+        <ion-button fill="outline" (click)="startScan()">
+          <ion-icon slot="start" name="search"></ion-icon>
+          <ion-label>Scan Devices</ion-label>
+        </ion-button>
+      } @else {
+        <ion-button fill="outline" color="warning" (click)="stopScan()">
+          <ion-icon slot="start" name="stop-circle"></ion-icon>
+          <ion-label>Stop Scanning</ion-label>
+        </ion-button>
+      }
+      @if (isConnected) {
+        <ion-button fill="outline" color="danger" (click)="disconnect()">
+          <ion-icon slot="start" name="power"></ion-icon>
+          <ion-label>Disconnect</ion-label>
+        </ion-button>
+      }
+    </ion-col>
+  </div>
+</div>
+
+<ion-modal #textModal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="textModal.dismiss()">
+            <ion-label>Cancel</ion-label>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Text</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="printText(textInput.value)">
+            <ion-icon name="print"></ion-icon>
+            <ion-label>Print</ion-label>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-item>
+        <ion-textarea type="text" placeholder="Text to print" #textInput rows="5"></ion-textarea>
+      </ion-item>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #dataCodeModal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="dataCodeModal.dismiss()">
+            <ion-label>Cancel</ion-label>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>QR Code / Barcode</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="printDataCode($any(dataInput.value), barcodeTextPlacementSelect.value)">
+            <ion-icon name="print"></ion-icon>
+            <ion-label>Print</ion-label>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-item>
+          <ion-select
+            label="Type"
+            interface="action-sheet"
+            [(ngModel)]="selectedDataCodeType"
+            [ngModelOptions]="{ standalone: true }"
+          >
+          @for (type of DataCodeTypes; track type) {
+            <ion-select-option [value]="type">{{ type }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+      <ion-item [ngStyle]="{ display: selectedDataCodeType === 'QR' ? 'none' : 'block' }">
+        <ion-select
+          label="Text Placement"
+          interface="action-sheet"
+          value="below"
+          #barcodeTextPlacementSelect
+        >
+          @for (placement of BarcodeTextPlacements; track placement) {
+            <ion-select-option [value]="placement">{{ placement[0].toUpperCase() + placement.slice(1) }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Data" #dataInput></ion-input>
+      </ion-item>
+    </ion-content>
+  </ng-template>
+</ion-modal>

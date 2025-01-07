@@ -1,0 +1,54 @@
+.ion-page {
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .devices {
+      padding: 1rem;
+
+      ion-spinner {
+        display: block;
+        margin: auto;
+      }
+
+      .device {
+        .device-wrapper {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    .actions {
+        --border-radius: 6px;
+      display: flex; 
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: unset;
+
+      padding-inline: 1rem;
+      margin-top: auto;
+
+      ion-item {
+        // --padding-top: 0.5rem;
+        // --padding-bottom: 0.5rem;
+
+        &::part(native) {
+          height: 100%;
+        }
+      }
+      ion-button {
+        margin: 0;
+        --border-radius: 6px;
+      }
+      ion-row {
+        gap: 0.25rem;
+        > * {
+          flex: 1;
+        }
+      }
+      padding-bottom: 2rem;
+    }
+  }
+}

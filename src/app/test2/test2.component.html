@@ -1,7 +1,13 @@
 <div class="outer">
   <input [(ngModel)]="serviceId">
-  <button [disabled]="busy"
-    (click)="handleClick()">find printers</button>
+  @if (!scanning) {
+    <button
+      (click)="startScan()">start scan</button>
+  } @else {
+    <button
+      (click)="stopScan()">stop scan</button>
+  }
+
   <div>
     MESSAGES
     <table>

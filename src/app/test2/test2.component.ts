@@ -6,7 +6,7 @@ import { BleClient, numbersToDataView, numberToUUID } from '@capacitor-community
   styleUrl: './test2.component.scss'
 })
 export class Test2Component {
-  busy = false
+  scanning = false
   private _initialized = false
   devices: {
     id: string
@@ -24,19 +24,22 @@ export class Test2Component {
     await BleClient.initialize()
   }
 
-  async handleClick() {
-    if (this.busy) return
-    this.busy = true
+  async startScan() {
+    if (this.scanning) return
+    this.scanning = true
     await this._initialize()
-
-    const devs = await BleClient.getConnectedDevices([numberToUUID(Number(this.serviceId))])
-    this.devices = []
-    for (const d of devs) {
+    BleClient.requestLEScan({}, res => {
       this.devices.push({
-        id: d.deviceId,
-        name: d.name ?? ""
+        id: res.device.deviceId,
+        name: res.device.name ?? ""
       })
-    }
-    this.busy = false
+    })
+
+  }
+
+  async stopScan() {
+    if (!this.scanning) return
+    this.scanning = false
+    BleClient.stopLEScan()
   }
 }

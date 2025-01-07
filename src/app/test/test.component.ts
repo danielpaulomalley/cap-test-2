@@ -23,13 +23,7 @@ export class TestComponent {
     try {
       CapacitorThermalPrinter.addListener("discoverDevices", ({devices}) => {
         zone.run(() => {
-          this.devices = []
-          for (const d of devices) {
-            this.devices.push({
-              name: d.name,
-              address: d.address
-            })
-          }
+          this.devices = devices
         })
       })
       CapacitorThermalPrinter.addListener("connected", () => {

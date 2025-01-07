@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, NgZone } from "@angular/core";
 import { BleClient, numbersToDataView, numberToUUID } from '@capacitor-community/bluetooth-le';
 
 @Component({
@@ -15,7 +15,7 @@ export class Test2Component {
   messages: string[] = []
   serviceId = "0x1118"
   constructor(
-
+    private zone: NgZone
   ) {}
 
   private async _initialize() {
@@ -28,10 +28,15 @@ export class Test2Component {
     if (this.scanning) return
     this.scanning = true
     await this._initialize()
+    this.devices = []
     BleClient.requestLEScan({}, res => {
-      this.devices.push({
-        id: res.device.deviceId,
-        name: res.device.name ?? ""
+      this.zone.run(() => {
+        const devs = [...this.devices]
+        devs.push({
+          id: res.device.deviceId,
+          name: res.device.name ?? ""
+        })
+        this.devices = devs
       })
     })
 

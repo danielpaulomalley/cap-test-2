@@ -1,25 +1,28 @@
-<button [disabled]="busy"
-  (click)="handleClick()">find printers</button>
-<div>
-  MESSAGES
+<div class="outer">
+  <input [(ngModel)]="serviceId">
+  <button [disabled]="busy"
+    (click)="handleClick()">find printers</button>
+  <div>
+    MESSAGES
+    <table>
+      <tbody>
+        @for (m of messages; track $index) {
+          <tr>
+            <td>{{m}}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  DEVICES
   <table>
     <tbody>
-      @for (m of messages; track $index) {
+      @for (d of devices; track $index) {
         <tr>
-          <td>{{m}}</td>
+          <td>{{d.id}}</td>
+          <td>{{d.name}}</td>
         </tr>
       }
     </tbody>
   </table>
 </div>
-DEVICES
-<table>
-  <tbody>
-    @for (d of devices; track $index) {
-      <tr>
-        <td>{{d.id}}</td>
-        <td>{{d.name}}</td>
-      </tr>
-    }
-  </tbody>
-</table>

@@ -13,6 +13,7 @@ export class Test2Component {
     name: string
   }[] = []
   messages: string[] = []
+  serviceId = "0x1118"
   constructor(
 
   ) {}
@@ -28,7 +29,7 @@ export class Test2Component {
     this.busy = true
     await this._initialize()
 
-    const devs = await BleClient.getConnectedDevices([numberToUUID(0x1118)])
+    const devs = await BleClient.getConnectedDevices([numberToUUID(Number(this.serviceId))])
     this.devices = []
     for (const d of devs) {
       this.devices.push({

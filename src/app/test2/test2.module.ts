@@ -16,4 +16,4 @@ const routes: Routes = [
   ],
   declarations: [Test2Component]
 })
-export class TestModule {}
+export class Test2Module {}
